@@ -179,10 +179,15 @@ const styles = StyleSheet.create({
     btnWrapper: {
         justifyContent: 'center', alignItems: 'center',
         backgroundColor: activeTabColor,
-        width: 50,
-        height: 50,
-        borderRadius: 50,
-        marginTop: -40
+        width: 54,
+        height: 54,
+        borderRadius: 54,
+        marginTop: -42,
+        elevation: 3,
+        shadowRadius: 54,
+        shadowColor: '#005',
+        // for ios below 
+        shadowOffset: { width: 5, height: 5 }
     },
     iconImg: {
         width: 30,

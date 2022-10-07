@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5'
 import Header from './Header'
 import Search from './Search'
+import Donut from './Donut'
 
 
 const { width, height } = Dimensions.get('window')
@@ -29,15 +30,16 @@ const HomeScreen = ({ navigation }) => {
     const Products = [
         {
             id: 1, title: 'Bazar India', img: require('../assets/images/bazar-india.png'), price: '70', desc: `BAZAR India is a retail chain that offers a wide range of apparel and general merchandise with latest fashion at affordable prices...`,
-            tags: ['Equity', 'DMAT', 'Pvt Ltd'],
+            tags: ['Equity', 'DMAT', 'Pvt Ltd'], percentage: 67
         },
         {
             id: 2, title: 'Madbow', img: require('../assets/images/madbow.png'), price: '60', desc: 'Madbow Ventures Limited is an Indian e-commerce lifestyle fashion brand that makes creative, distinctive fashion...',
-            tags: ['CCPS', 'Physical', 'Public Ltd'],
+            tags: ['CCPS', 'Physical', 'Public Ltd'], percentage: 100
         }
     ]
 
     const [selectedCat, setSelectedCat] = useState()
+    const [searchQuery, setsearchQuery] = useState()
 
     return (
         <SafeAreaView style={styles.container}>
@@ -45,7 +47,7 @@ const HomeScreen = ({ navigation }) => {
             <Header />
 
             <ScrollView style={styles.contentScroll} showsVerticalScrollIndicator={false}>
-                <Search />
+                <Search value={searchQuery} onChangeText={setsearchQuery} />
 
                 <ScrollView style={styles.catScroll}
                     showsHorizontalScrollIndicator={false} horizontal>
@@ -80,8 +82,8 @@ const HomeScreen = ({ navigation }) => {
 
                                 <View style={styles.detailWrapper}>
                                     <View style={[styles.rowAlign, { justifyContent: 'space-between', marginBottom: 10 }]}>
-                                        <Text style={[styles.heading, { fontFamily: 'Candara_Bold' }]}>{item.title}</Text>
-                                        <Text style={[styles.heading,]}> ₹{item.price}</Text>
+                                        <Text style={[styles.heading, { fontFamily: 'Candara_Bold', color: '#4D4F5C', }]}>{item.title}</Text>
+                                        <Text style={[styles.heading, { color: '#4D4F5C', }]}> ₹{item.price}</Text>
                                     </View>
                                     <View style={styles.rowAlign}>
                                         {item.tags.map((tag, i) =>
@@ -93,7 +95,37 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                             </View>
 
-                            <Text style={[styles.regTxt, { color: '#707070',marginVertical:10 }]}>{item.desc}</Text>
+                            <Text style={[styles.regTxt, { color: '#707070', marginBottom: 5, marginTop: 15 }]}>{item.desc}</Text>
+
+                            <View style={[styles.rowAlign, { marginVertical: 10, justifyContent: 'space-between' }]}>
+                                <View>
+                                    <Text style={[styles.smTxt, { color: '#707070', marginBottom: 5 }]}>To Raised</Text>
+                                    <Text style={[styles.subHeadingBold, { color: '#4D4F5C', }]}>₹{'15,00,00,000'}</Text>
+                                </View>
+                                <View>
+                                    <Text style={[styles.smTxt, { color: '#707070', marginBottom: 5 }]}>Launch Date</Text>
+                                    <Text style={[styles.subHeadingBold, { color: '#4D4F5C', }]}>24 days left</Text>
+                                </View>
+                                <Donut percentage={item.percentage} radius={28} textColor={'#707070'} />
+                            </View>
+
+                            <View style={styles.divider} />
+
+                            <View style={[styles.rowAlign, { marginTop: 10, justifyContent: 'space-between' }]}>
+                                <View>
+                                    <Text style={[styles.subHeadingBold, { color: '#4D4F5C', }]}>₹{'336,792'}</Text>
+                                    <Text style={[styles.smTxt, { color: '#707070', marginBottom: 5 }]}>Raised</Text>
+                                </View>
+                                <View>
+                                    <Text style={[styles.subHeadingBold, { color: '#4D4F5C', }]}>17.42%</Text>
+                                    <Text style={[styles.smTxt, { color: '#707070', marginBottom: 5 }]}>Equity</Text>
+                                </View>
+                                <View>
+                                    <Text style={[styles.subHeadingBold, { color: '#4D4F5C', }]}>175</Text>
+                                    <Text style={[styles.smTxt, { color: '#707070', marginBottom: 5 }]}>Investors</Text>
+                                </View>
+                            </View>
+
                         </View>
                     )}
                 </View>
@@ -214,9 +246,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
-        height: 30,
+        height: PixelRatio.getPixelSizeForLayoutSize(10),
         borderRadius: 5,
         marginRight: 10,
         backgroundColor: '#70707033'
     },
+    divider: {
+        width: '100%',
+        height: 1,
+        // marginVertical:5,
+        backgroundColor: '#70707033'
+    }
 })
